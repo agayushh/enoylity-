@@ -29,6 +29,10 @@ export default function Home() {
     );
   };
 
+  const deleteTask = (id: number) => {
+    setTasks(tasks.filter((task) => task.id !== id));
+  };
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-start p-8 bg-slate-900">
       <div className="w-full max-w-xl rounded-2xl shadow-2xl p-8 bg-slate-800 border border-slate-700 relative overflow-hidden">
@@ -64,19 +68,28 @@ export default function Home() {
                 task.completed ? "opacity-60 line-through" : ""
               }`}
             >
-              <span className="text-lg text-slate-100 tracking-wide">
+              <span className="text-lg text-slate-100 tracking-wide flex-1">
                 {task.text}
               </span>
-              <button
-                onClick={() => toggleTask(task.id)}
-                className={`ml-4 px-4 py-2 rounded-lg font-medium transition-all duration-200 border border-slate-500 ${
-                  task.completed
-                    ? "bg-slate-500 text-slate-200"
-                    : "bg-slate-800 text-slate-300 hover:bg-slate-600 hover:text-white"
-                }`}
-              >
-                {task.completed ? "Completed" : "Mark Done"}
-              </button>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => toggleTask(task.id)}
+                  className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 border border-slate-500 ${
+                    task.completed
+                      ? "bg-slate-500 text-slate-200"
+                      : "bg-slate-800 text-slate-300 hover:bg-slate-600 hover:text-white"
+                  }`}
+                >
+                  {task.completed ? "Completed" : "Mark Done"}
+                </button>
+                <button
+                  onClick={() => deleteTask(task.id)}
+                  className="px-4 py-2 rounded-lg font-medium transition-all duration-200 border border-red-500 bg-transparent text-red-400 hover:bg-red-600 hover:text-white"
+                  title="Delete Task"
+                >
+                  Delete
+                </button>
+              </div>
             </li>
           ))}
         </ul>
